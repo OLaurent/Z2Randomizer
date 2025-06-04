@@ -1,0 +1,769 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="CrossPlatformUI.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        xmlns:vm="clr-namespace:CrossPlatformUI.ViewModels"
+        Width="900" Height="700"
+        Title="Zelda 2 Randomizer">
+
+  <StackPanel>
+    <!-- Top controls: ROM, Seed, Flags, Buttons -->
+    <StackPanel Orientation="Horizontal" Margin="10">
+      <StackPanel>
+        <TextBlock Text="ROM File"/>
+        <TextBox Width="150" Watermark="Select ROM file..." Text="{Binding RomFile}" ToolTip.Tip="Select a USA version of the Zelda 2 ROM"/>
+        <Button Command="{Binding SelectFileCommand}" Content="Browse..." Width="90" Margin="0,5,0,0"/>
+      </StackPanel>
+      <StackPanel Margin="20,0,0,0">
+        <TextBlock Text="Seed"/>
+        <TextBox Text="{Binding Seed}" Width="150" ToolTip.Tip="A different seed results in a different shuffled ROM."/>
+        <Button Content="Create Seed" Width="90" Margin="0,5,0,0" Command="{Binding CreateSeedCommand}"/>
+      </StackPanel>
+      <StackPanel Margin="20,0,0,0">
+        <TextBlock Text="Flags"/>
+        <TextBox Width="200" Text="{Binding Flags}" ToolTip.Tip="These flags represent the selected options. They can be copy/pasted."/>
+      </StackPanel>
+      <StackPanel Margin="20,0,0,0">
+        <Button Content="Generate ROM" Width="120" Margin="0,0,0,5" ToolTip.Tip="Create the ROM" Command="{Binding GenerateRomCommand}"/>
+        <Button Content="Check for Updates" Width="120" Margin="0,0,0,5"/>
+        <Button Content="Wiki" Width="90"/>
+        <Button Content="Discord" Width="90" Margin="0,5,0,0"/>
+      </StackPanel>
+    </StackPanel>
+
+    <!-- Tabs -->
+    <TabControl Margin="10">
+      <!-- Start Configuration Tab -->
+      <TabItem Header="Start Configuration">
+        <StackPanel Orientation="Horizontal" Margin="10">
+          <!-- Starting Items -->
+          <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="4" Margin="0,0,10,0" Padding="8">
+            <StackPanel>
+              <TextBlock Text="Starting Items" FontWeight="Bold" Margin="0,0,0,8"/>
+              <CheckBox Content="Shuffle Starting Items" ToolTip.Tip="Each item has a 25% chance of being in your inventory"/>
+              <CheckBox Content="Start With Candle" ToolTip.Tip="Start with candle"/>
+              <CheckBox Content="Start With Glove" ToolTip.Tip="Start with the glove"/>
+              <CheckBox Content="Start With Raft" ToolTip.Tip="Start with the raft"/>
+              <CheckBox Content="Start With Boots" ToolTip.Tip="Start with the boots"/>
+              <CheckBox Content="Start With Flute" ToolTip.Tip="Start with the flute"/>
+              <CheckBox Content="Start With Cross" ToolTip.Tip="Start with the cross"/>
+              <CheckBox Content="Start With Hammer" ToolTip.Tip="Start with the hammer"/>
+              <CheckBox Content="Start With Magic Key" ToolTip.Tip="Start with the magic key"/>
+            </StackPanel>
+          </Border>
+          <!-- Starting Spells -->
+          <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="4" Margin="0,0,10,0" Padding="8">
+            <StackPanel>
+              <TextBlock Text="Starting Spells" FontWeight="Bold" Margin="0,0,0,8"/>
+              <CheckBox Content="Shuffle Starting Spells" ToolTip.Tip="Each spell has a 25% chance of being known"/>
+              <CheckBox Content="Start With Shield" ToolTip.Tip="Start with shield spell"/>
+              <CheckBox Content="Start With Jump" ToolTip.Tip="Start with jump spell"/>
+              <CheckBox Content="Start With Life" ToolTip.Tip="Start with life spell"/>
+              <CheckBox Content="Start With Fairy" ToolTip.Tip="Start with fairy spell"/>
+              <CheckBox Content="Start With Fire" ToolTip.Tip="Start with fire spell"/>
+              <CheckBox Content="Start With Reflect" ToolTip.Tip="Start with reflect spell"/>
+              <CheckBox Content="Start With Spell" ToolTip.Tip="Start with spell spell"/>
+              <CheckBox Content="Start With Thunder" ToolTip.Tip="Start with thunder spell"/>
+            </StackPanel>
+          </Border>
+          <!-- Parameters -->
+          <StackPanel>
+            <TextBlock Text="Heart Containers"/>
+            <ComboBox Width="60">
+              <ComboBoxItem Content="1"/>
+              <ComboBoxItem Content="2"/>
+              <ComboBoxItem Content="3"/>
+              <ComboBoxItem Content="4"/>
+              <ComboBoxItem Content="5"/>
+              <ComboBoxItem Content="6"/>
+              <ComboBoxItem Content="7"/>
+              <ComboBoxItem Content="8"/>
+              <ComboBoxItem Content="?"/>
+            </ComboBox>
+            <TextBlock Text="Starting Techs"/>
+            <ComboBox Width="120">
+              <ComboBoxItem Content="None"/>
+              <ComboBoxItem Content="Downstab"/>
+              <ComboBoxItem Content="Upstab"/>
+              <ComboBoxItem Content="Both"/>
+              <ComboBoxItem Content="Random"/>
+            </ComboBox>
+            <TextBlock Text="Starting Lives"/>
+            <ComboBox Width="120" SelectedIndex="{Binding StartingLives}">
+              <ComboBoxItem Content="1"/>
+              <ComboBoxItem Content="2"/>
+              <ComboBoxItem Content="3"/>
+              <ComboBoxItem Content="4"/>
+              <ComboBoxItem Content="5"/>
+              <ComboBoxItem Content="8"/>
+              <ComboBoxItem Content="16"/>
+              <ComboBoxItem Content="Random(2-5)"/>
+            </ComboBox>
+            <TextBlock Text="Starting Level"/>
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="Atk"/>
+              <ComboBox Width="40">
+                <ComboBoxItem Content="1"/>
+                <ComboBoxItem Content="2"/>
+                <ComboBoxItem Content="3"/>
+                <ComboBoxItem Content="4"/>
+                <ComboBoxItem Content="5"/>
+                <ComboBoxItem Content="6"/>
+                <ComboBoxItem Content="7"/>
+                <ComboBoxItem Content="8"/>
+              </ComboBox>
+              <TextBlock Text="Mag"/>
+              <ComboBox Width="40">
+                <ComboBoxItem Content="1"/>
+                <ComboBoxItem Content="2"/>
+                <ComboBoxItem Content="3"/>
+                <ComboBoxItem Content="4"/>
+                <ComboBoxItem Content="5"/>
+                <ComboBoxItem Content="6"/>
+                <ComboBoxItem Content="7"/>
+                <ComboBoxItem Content="8"/>
+              </ComboBox>
+              <TextBlock Text="Life"/>
+              <ComboBox Width="40">
+                <ComboBoxItem Content="1"/>
+                <ComboBoxItem Content="2"/>
+                <ComboBoxItem Content="3"/>
+                <ComboBoxItem Content="4"/>
+                <ComboBoxItem Content="5"/>
+                <ComboBoxItem Content="6"/>
+                <ComboBoxItem Content="7"/>
+                <ComboBoxItem Content="8"/>
+              </ComboBox>
+            </StackPanel>
+          </StackPanel>
+        </StackPanel>
+      </TabItem>
+
+      <!-- Overworld Tab -->
+<TabItem Header="Overworld">
+  <ScrollViewer>
+    <StackPanel Margin="10" Spacing="8">
+      <!-- Biomes -->
+      <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Spacing="8">
+        <TextBlock Text="West Continent Biome:" VerticalAlignment="Center"/>
+        <ComboBox Width="180">
+          <ComboBoxItem Content="Vanilla"/>
+          <ComboBoxItem Content="Vanilla (shuffled)"/>
+          <ComboBoxItem Content="Vanilla-Like"/>
+          <ComboBoxItem Content="Islands"/>
+          <ComboBoxItem Content="Canyon"/>
+          <ComboBoxItem Content="Caldera"/>
+          <ComboBoxItem Content="Mountainous"/>
+          <ComboBoxItem Content="Random"/>
+          <ComboBoxItem Content="Random (no Vanilla)"/>
+          <ComboBoxItem Content="Random (no Vanilla / Shuffle)"/>
+        </ComboBox>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Spacing="8">
+        <TextBlock Text="East Continent Biome:" VerticalAlignment="Center"/>
+        <ComboBox Width="180"/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Spacing="8">
+        <TextBlock Text="Death Mountain Biome:" VerticalAlignment="Center"/>
+        <ComboBox Width="180"/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Spacing="8">
+        <TextBlock Text="Maze Island Biome:" VerticalAlignment="Center"/>
+        <ComboBox Width="180"/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Spacing="8">
+        <TextBlock Text="Climate:" VerticalAlignment="Center"/>
+        <ComboBox Width="180"/>
+      </StackPanel>
+
+      <!-- Shuffle options -->
+      <CheckBox Content="Include Lava in Shuffle"/>
+      <CheckBox Content="Generate Bagu's Woods"/>
+      <CheckBox Content="All Water is Walkable with Boots"/>
+      <CheckBox Content="Shuffle which Location(s) are Hidden"/>
+      <CheckBox Content="Shuffled Vanilla Locations Show Actual Terrain"/>
+      <CheckBox Content="Hide Less Important Locations"/>
+      <CheckBox Content="Allow Boulder Blocked Connections"/>
+      <CheckBox Content="Allow Path Enemies"/>
+      <CheckBox Content="Sane Cave Shuffle"/>
+      <CheckBox Content="Swap Up+A and Downstab"/>
+      <CheckBox Content="Mix Large and Small Items"/>
+      <CheckBox Content="Mix Overworld and Palace Items"/>
+      <CheckBox Content="Shuffle Overworld Items"/>
+      <CheckBox Content="Shuffle Palace Items"/>
+      <CheckBox Content="Shuffle Small Items"/>
+      <CheckBox Content="Palaces Have Extra Keys"/>
+      <CheckBox Content="Palace Palette Shuffle"/>
+      <CheckBox Content="Allow Palace Continent Swap"/>
+      <CheckBox Content="Restart At Palaces"/>
+      <CheckBox Content="Fast Spell Casting"/>
+      <CheckBox Content="Randomize Jar Requirements"/>
+      <CheckBox Content="Remove Thunderbird Requirement"/>
+      <CheckBox Content="Include Pbag Caves In Shuffle"/>
+      <CheckBox Content="Include GP In Shuffle"/>
+      <CheckBox Content="Shuffle Dripper Enemy"/>
+      <CheckBox Content="Disable Music"/>
+      <CheckBox Content="Remove Spell Items"/>
+      <CheckBox Content="Enable Town Name Hints"/>
+      <CheckBox Content="Enable Spell Item Hints"/>
+      <CheckBox Content="Enable Helpful Hints"/>
+      <CheckBox Content="Flashing Off"/>
+      <CheckBox Content="Shuffled Vanilla Shows Actual Terrain"/>
+      <CheckBox Content="Randomize Boss Item"/>
+      <CheckBox Content="Use Good Boots"/>
+      <CheckBox Content="Randomize Spell Spell Enemy"/>
+      <CheckBox Content="Generate Bagu Woods"/>
+      <CheckBox Content="Include Vanilla Rooms"/>
+      <CheckBox Content="Blocking Rooms In Any Palace"/>
+      <CheckBox Content="Boss Rooms Exit To Palace"/>
+      <CheckBox Content="Dash Always On"/>
+      <CheckBox Content="Jump Always On"/>
+      <CheckBox Content="Disable HUD Lag"/>
+      <CheckBox Content="Use Custom Rooms"/>
+      <CheckBox Content="Disable Unsafe Music"/>
+      <CheckBox Content="Randomize Music"/>
+      <CheckBox Content="Mix Custom And Original Music"/>
+      <CheckBox Content="Include v4.4 Rooms"/>
+      <CheckBox Content="Include v4.0 Rooms"/>
+      <CheckBox Content="Shuffle Enemy Palettes"/>
+      <CheckBox Content="Always Beam"/>
+      <CheckBox Content="Use Community Text"/>
+      <CheckBox Content="No Duplicate Rooms By Enemies"/>
+      <CheckBox Content="Hard Bosses"/>
+      <CheckBox Content="Randomize Knockback"/>
+      <CheckBox Content="Hide Kasuto"/>
+      <CheckBox Content="Shuffle Encounters"/>
+      <CheckBox Content="Shuffle Palace Enemies"/>
+      <CheckBox Content="Shuffle Overworld Enemies"/>
+      <CheckBox Content="Mix Overworld Palace Items"/>
+      <CheckBox Content="Shuffle Overworld Items"/>
+      <CheckBox Content="Shuffle Palace Items"/>
+      <CheckBox Content="Shuffle Small Items"/>
+      <CheckBox Content="Palaces Have Extra Keys"/>
+      <CheckBox Content="Palace Palette"/>
+      <CheckBox Content="Allow Palace Continent Swap"/>
+      <CheckBox Content="Restart At Palaces"/>
+      <CheckBox Content="Fast Spell"/>
+      <CheckBox Content="Randomize Jar Requirements"/>
+      <CheckBox Content="Remove Thunderbird"/>
+      <CheckBox Content="Include Pbag Caves"/>
+      <CheckBox Content="Include GP"/>
+      <CheckBox Content="Shuffle Dripper"/>
+      <CheckBox Content="Disable Music"/>
+      <CheckBox Content="Remove Spell Items"/>
+      <CheckBox Content="Enable Town Name Hints"/>
+      <CheckBox Content="Enable Spell Item Hints"/>
+      <CheckBox Content="Enable Helpful Hints"/>
+      <CheckBox Content="Flashing Off"/>
+      <CheckBox Content="Shuffled Vanilla Shows Actual Terrain"/>
+      <CheckBox Content="Randomize Boss Item"/>
+      <CheckBox Content="Use Good Boots"/>
+      <CheckBox Content="Randomize Spell Spell Enemy"/>
+      <CheckBox Content="Generate Bagu Woods"/>
+      <CheckBox Content="Include Vanilla Rooms"/>
+      <CheckBox Content="Blocking Rooms In Any Palace"/>
+      <CheckBox Content="Boss Rooms Exit To Palace"/>
+      <CheckBox Content="Dash Always On"/>
+      <CheckBox Content="Jump Always On"/>
+      <CheckBox Content="Disable HUD Lag"/>
+      <CheckBox Content="Use Custom Rooms"/>
+      <CheckBox Content="Disable Unsafe Music"/>
+      <CheckBox Content="Randomize Music"/>
+      <CheckBox Content="Mix Custom And Original Music"/>
+      <CheckBox Content="Include v4.4 Rooms"/>
+      <CheckBox Content="Include v4.0 Rooms"/>
+      <CheckBox Content="Shuffle Enemy Palettes"/>
+      <CheckBox Content="Always Beam"/>
+      <CheckBox Content="Use Community Text"/>
+      <CheckBox Content="No Duplicate Rooms By Enemies"/>
+      <CheckBox Content="Hard Bosses"/>
+      <CheckBox Content="Randomize Knockback"/>
+      <CheckBox Content="Disable HUD Lag"/>
+      <CheckBox Content="Use Custom Rooms"/>
+      <CheckBox Content="Disable Unsafe Music"/>
+      <CheckBox Content="Randomize Music"/>
+      <CheckBox Content="Mix Custom And Original Music"/>
+      <!-- Ajoutez ici d'autres options spécifiques si besoin -->
+    </StackPanel>
+  </ScrollViewer>
+</TabItem>
+
+      <!-- Palaces Tab (exemple partiel) -->
+<TabItem Header="Palaces">
+  <ScrollViewer>
+    <StackPanel Margin="10" Spacing="8">
+      <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Spacing="8">
+        <TextBlock Text="Palace Style:" VerticalAlignment="Center"/>
+        <ComboBox Width="176">
+          <ComboBoxItem Content="Vanilla"/>
+          <ComboBoxItem Content="Shuffled"/>
+          <ComboBoxItem Content="Reconstructed"/>
+          <ComboBoxItem Content="Random"/>
+        </ComboBox>
+      </StackPanel>
+      <CheckBox Content="Include Vanilla Rooms"/>
+      <CheckBox Content="Include v4.0 Rooms"/>
+      <CheckBox Content="Include v4.4 Rooms"/>
+      <CheckBox Content="No Duplicate Rooms (By Layout)"/>
+      <CheckBox Content="No Duplicate Rooms (By Layout/Enemies)"/>
+      <CheckBox Content="Harder Carock"/>
+      <CheckBox Content="Use Custom Rooms"/>
+      <CheckBox Content="Blocking Rooms In Any Palace"/>
+      <CheckBox Content="Boss Rooms Exit To Palace"/>
+      <CheckBox Content="Palaces Have Extra Keys"/>
+      <CheckBox Content="Palace Palette Shuffle"/>
+      <CheckBox Content="Allow Palace Continent Swap"/>
+      <CheckBox Content="Restart At Palaces"/>
+      <CheckBox Content="Shuffle Palace Enemies"/>
+      <CheckBox Content="Shuffle Palace Items"/>
+      <CheckBox Content="Shuffle Small Items"/>
+      <CheckBox Content="Remove Spell Items"/>
+      <CheckBox Content="Randomize Boss Item"/>
+      <CheckBox Content="Shuffle Enemy Palettes"/>
+      <CheckBox Content="Always Beam"/>
+      <CheckBox Content="Hard Bosses"/>
+      <CheckBox Content="Dash Always On"/>
+      <CheckBox Content="Jump Always On"/>
+      <CheckBox Content="Disable HUD Lag"/>
+      <CheckBox Content="Disable Unsafe Music"/>
+      <CheckBox Content="Randomize Music"/>
+      <CheckBox Content="Mix Custom And Original Music"/>
+      <!-- Ajoutez ici d'autres options spécifiques si besoin -->
+    </StackPanel>
+  </ScrollViewer>
+</TabItem>
+
+<TabItem Header="Levels">
+  <ScrollViewer>
+    <StackPanel Margin="10" Spacing="8">
+      <!-- Starting Levels -->
+      <TextBlock Text="Starting Levels" FontWeight="Bold" Margin="0,0,0,8"/>
+      <StackPanel Orientation="Horizontal" Spacing="8">
+        <TextBlock Text="Attack:" VerticalAlignment="Center"/>
+        <ComboBox Width="60">
+          <ComboBoxItem Content="1"/>
+          <ComboBoxItem Content="2"/>
+          <ComboBoxItem Content="3"/>
+          <ComboBoxItem Content="4"/>
+          <ComboBoxItem Content="5"/>
+          <ComboBoxItem Content="6"/>
+          <ComboBoxItem Content="7"/>
+          <ComboBoxItem Content="8"/>
+        </ComboBox>
+        <TextBlock Text="Magic:" VerticalAlignment="Center"/>
+        <ComboBox Width="60">
+          <ComboBoxItem Content="1"/>
+          <ComboBoxItem Content="2"/>
+          <ComboBoxItem Content="3"/>
+          <ComboBoxItem Content="4"/>
+          <ComboBoxItem Content="5"/>
+          <ComboBoxItem Content="6"/>
+          <ComboBoxItem Content="7"/>
+          <ComboBoxItem Content="8"/>
+        </ComboBox>
+        <TextBlock Text="Life:" VerticalAlignment="Center"/>
+        <ComboBox Width="60">
+          <ComboBoxItem Content="1"/>
+          <ComboBoxItem Content="2"/>
+          <ComboBoxItem Content="3"/>
+          <ComboBoxItem Content="4"/>
+          <ComboBoxItem Content="5"/>
+          <ComboBoxItem Content="6"/>
+          <ComboBoxItem Content="7"/>
+          <ComboBoxItem Content="8"/>
+        </ComboBox>
+      </StackPanel>
+
+      <!-- Level Caps -->
+      <TextBlock Text="Level Caps" FontWeight="Bold" Margin="16,16,0,8"/>
+      <StackPanel Orientation="Horizontal" Spacing="8">
+        <TextBlock Text="Attack Cap:" VerticalAlignment="Center"/>
+        <ComboBox Width="60">
+          <ComboBoxItem Content="8"/>
+          <ComboBoxItem Content="7"/>
+          <ComboBoxItem Content="6"/>
+          <ComboBoxItem Content="5"/>
+          <ComboBoxItem Content="4"/>
+          <ComboBoxItem Content="3"/>
+          <ComboBoxItem Content="2"/>
+          <ComboBoxItem Content="1"/>
+        </ComboBox>
+        <TextBlock Text="Magic Cap:" VerticalAlignment="Center"/>
+        <ComboBox Width="60">
+          <ComboBoxItem Content="8"/>
+          <ComboBoxItem Content="7"/>
+          <ComboBoxItem Content="6"/>
+          <ComboBoxItem Content="5"/>
+          <ComboBoxItem Content="4"/>
+          <ComboBoxItem Content="3"/>
+          <ComboBoxItem Content="2"/>
+          <ComboBoxItem Content="1"/>
+        </ComboBox>
+        <TextBlock Text="Life Cap:" VerticalAlignment="Center"/>
+        <ComboBox Width="60">
+          <ComboBoxItem Content="8"/>
+          <ComboBoxItem Content="7"/>
+          <ComboBoxItem Content="6"/>
+          <ComboBoxItem Content="5"/>
+          <ComboBoxItem Content="4"/>
+          <ComboBoxItem Content="3"/>
+          <ComboBoxItem Content="2"/>
+          <ComboBoxItem Content="1"/>
+        </ComboBox>
+      </StackPanel>
+
+      <!-- Gems -->
+      <TextBlock Text="Starting Gems" FontWeight="Bold" Margin="16,16,0,8"/>
+      <StackPanel Orientation="Horizontal" Spacing="8">
+        <TextBlock Text="Min:" VerticalAlignment="Center"/>
+        <ComboBox Width="60">
+          <ComboBoxItem Content="1"/>
+          <ComboBoxItem Content="2"/>
+          <ComboBoxItem Content="3"/>
+          <ComboBoxItem Content="4"/>
+          <ComboBoxItem Content="5"/>
+          <ComboBoxItem Content="6"/>
+        </ComboBox>
+        <TextBlock Text="Max:" VerticalAlignment="Center"/>
+        <ComboBox Width="60">
+          <ComboBoxItem Content="1"/>
+          <ComboBoxItem Content="2"/>
+          <ComboBoxItem Content="3"/>
+          <ComboBoxItem Content="4"/>
+          <ComboBoxItem Content="5"/>
+          <ComboBoxItem Content="6"/>
+        </ComboBox>
+      </StackPanel>
+
+      <!-- Experience and Scaling -->
+      <TextBlock Text="Experience &amp; Scaling" FontWeight="Bold" Margin="16,16,0,8"/>
+      <CheckBox Content="Shuffle Enemy HP"/>
+      <CheckBox Content="Life EXP Needed"/>
+      <CheckBox Content="Magic EXP Needed"/>
+      <CheckBox Content="Shuffle Attack EXP Needed"/>
+      <CheckBox Content="Shuffle All EXP"/>
+      <CheckBox Content="Shuffle Sword Immunity"/>
+      <CheckBox Content="Shuffle Steal XP Amount"/>
+      <CheckBox Content="Shuffle XP Stealers"/>
+      <CheckBox Content="Scale Level Requirements To Cap"/>
+      <CheckBox Content="Disable Magic Container Requirement"/>
+      <CheckBox Content="Shuffle Spell Locations"/>
+      <CheckBox Content="Shuffle Life Refill"/>
+      <TextBlock Text="Level Cap:"/>
+      <ComboBox Width="60">
+        <ComboBoxItem Content="8"/>
+        <ComboBoxItem Content="7"/>
+        <ComboBoxItem Content="6"/>
+        <ComboBoxItem Content="5"/>
+        <ComboBoxItem Content="4"/>
+        <ComboBoxItem Content="3"/>
+        <ComboBoxItem Content="2"/>
+        <ComboBoxItem Content="1"/>
+      </ComboBox>
+    </StackPanel>
+  </ScrollViewer>
+</TabItem>
+
+<TabItem Header="Spells">
+  <ScrollViewer>
+    <StackPanel Margin="10" Spacing="8">
+      <TextBlock Text="Starting Spells" FontWeight="Bold" Margin="0,0,0,8"/>
+      <CheckBox Content="Shuffle Starting Spells"/>
+      <CheckBox Content="Start With Shield"/>
+      <CheckBox Content="Start With Jump"/>
+      <CheckBox Content="Start With Life"/>
+      <CheckBox Content="Start With Fairy"/>
+      <CheckBox Content="Start With Fire"/>
+      <CheckBox Content="Start With Reflect"/>
+      <CheckBox Content="Start With Spell"/>
+      <CheckBox Content="Start With Thunder"/>
+
+      <TextBlock Text="Spell Options" FontWeight="Bold" Margin="16,16,0,8"/>
+      <CheckBox Content="Shuffle Spell Locations"/>
+      <CheckBox Content="Shuffle Life Refill"/>
+      <CheckBox Content="Fast Spell Casting"/>
+      <CheckBox Content="Randomize Spell Spell Enemy"/>
+      <CheckBox Content="Randomize Boss Item"/>
+      <CheckBox Content="Enable Spell Item Hints"/>
+      <CheckBox Content="Enable Helpful Hints"/>
+      <CheckBox Content="Disable Magic Container Requirement"/>
+      <CheckBox Content="Remove Spell Items"/>
+      <CheckBox Content="Use Community Text"/>
+      <CheckBox Content="Disable Unsafe Music"/>
+      <CheckBox Content="Randomize Music"/>
+      <CheckBox Content="Mix Custom And Original Music"/>
+      <!-- Ajoutez ici d'autres options spécifiques aux sorts si besoin -->
+    </StackPanel>
+  </ScrollViewer>
+</TabItem>
+
+
+<TabItem Header="Enemies">
+  <ScrollViewer>
+    <StackPanel Margin="10" Spacing="8">
+      <TextBlock Text="Enemy Shuffle Options" FontWeight="Bold" Margin="0,0,0,8"/>
+      <CheckBox Content="Shuffle Overworld Enemies"/>
+      <CheckBox Content="Shuffle Palace Enemies"/>
+      <CheckBox Content="Shuffle Enemy HP"/>
+      <CheckBox Content="Shuffle Enemy Palettes"/>
+      <CheckBox Content="Shuffle Dripper Enemy"/>
+      <CheckBox Content="Shuffle XP Stealers"/>
+      <CheckBox Content="Shuffle Sword Immunity"/>
+      <CheckBox Content="Shuffle Steal XP Amount"/>
+      <CheckBox Content="Hard Bosses"/>
+      <CheckBox Content="Harder Carock"/>
+      <CheckBox Content="Randomize Boss Item"/>
+      <CheckBox Content="Randomize Knockback"/>
+      <CheckBox Content="Always Beam"/>
+      <CheckBox Content="Dash Always On"/>
+      <CheckBox Content="Jump Always On"/>
+      <CheckBox Content="Disable HUD Lag"/>
+      <CheckBox Content="Flashing Off"/>
+
+      <TextBlock Text="Large Enemy Drops" FontWeight="Bold" Margin="16,16,0,8"/>
+      <CheckBox Content="Large Enemies Drop Key"/>
+      <CheckBox Content="Large Enemies Drop 1-Up"/>
+      <CheckBox Content="Large Enemies Drop XL Bag"/>
+      <CheckBox Content="Large Enemies Drop Large Bag"/>
+      <CheckBox Content="Large Enemies Drop Medium Bag"/>
+      <CheckBox Content="Large Enemies Drop Small Bag"/>
+      <CheckBox Content="Large Enemies Drop Red Jar"/>
+      <CheckBox Content="Large Enemies Drop Blue Jar"/>
+
+      <TextBlock Text="Small Enemy Drops" FontWeight="Bold" Margin="16,16,0,8"/>
+      <CheckBox Content="Small Enemies Drop Key"/>
+      <CheckBox Content="Small Enemies Drop 1-Up"/>
+      <CheckBox Content="Small Enemies Drop XL Bag"/>
+      <CheckBox Content="Small Enemies Drop Large Bag"/>
+      <CheckBox Content="Small Enemies Drop Medium Bag"/>
+      <CheckBox Content="Small Enemies Drop Small Bag"/>
+      <CheckBox Content="Small Enemies Drop Red Jar"/>
+      <CheckBox Content="Small Enemies Drop Blue Jar"/>
+
+      <TextBlock Text="Drop Options" FontWeight="Bold" Margin="16,16,0,8"/>
+      <CheckBox Content="Shuffle Drop Frequency"/>
+      <CheckBox Content="Standardize Drops"/>
+      <CheckBox Content="Randomize Drops"/>
+      <CheckBox Content="Shuffle Pbag Amounts"/>
+      <CheckBox Content="Mix Large and Small Items"/>
+      <CheckBox Content="Mix Overworld and Palace Items"/>
+      <CheckBox Content="Shuffle Overworld Items"/>
+      <CheckBox Content="Shuffle Palace Items"/>
+      <CheckBox Content="Shuffle Small Items"/>
+      <CheckBox Content="Palaces Have Extra Keys"/>
+      <CheckBox Content="Palace Palette Shuffle"/>
+      <CheckBox Content="Allow Palace Continent Swap"/>
+      <CheckBox Content="Restart At Palaces"/>
+      <CheckBox Content="Remove Spell Items"/>
+      <CheckBox Content="Enable Helpful Hints"/>
+      <CheckBox Content="Disable Unsafe Music"/>
+      <CheckBox Content="Randomize Music"/>
+      <CheckBox Content="Mix Custom And Original Music"/>
+      <!-- Ajoutez ici d'autres options spécifiques aux ennemis si besoin -->
+    </StackPanel>
+  </ScrollViewer>
+</TabItem>
+
+<TabItem Header="Items">
+  <ScrollViewer>
+    <StackPanel Margin="10" Spacing="8">
+      <TextBlock Text="Item Shuffle Options" FontWeight="Bold" Margin="0,0,0,8"/>
+      <CheckBox Content="Shuffle Overworld Items"/>
+      <CheckBox Content="Shuffle Palace Items"/>
+      <CheckBox Content="Shuffle Small Items"/>
+      <CheckBox Content="Mix Large and Small Items"/>
+      <CheckBox Content="Mix Overworld and Palace Items"/>
+      <CheckBox Content="Mix Overworld Palace Items"/>
+      <CheckBox Content="Include Pbag Caves In Shuffle"/>
+      <CheckBox Content="Include GP In Shuffle"/>
+      <CheckBox Content="Remove Spell Items"/>
+      <CheckBox Content="Palaces Have Extra Keys"/>
+      <CheckBox Content="Palace Palette Shuffle"/>
+      <CheckBox Content="Allow Palace Continent Swap"/>
+      <CheckBox Content="Restart At Palaces"/>
+      <CheckBox Content="Randomize Jar Requirements"/>
+      <CheckBox Content="Randomize Boss Item"/>
+      <CheckBox Content="Use Good Boots"/>
+      <CheckBox Content="Enable Helpful Hints"/>
+      <CheckBox Content="Enable Town Name Hints"/>
+      <CheckBox Content="Enable Spell Item Hints"/>
+      <CheckBox Content="Disable Unsafe Music"/>
+      <CheckBox Content="Randomize Music"/>
+      <CheckBox Content="Mix Custom And Original Music"/>
+      <!-- Ajoutez ici d'autres options spécifiques aux objets si besoin -->
+    </StackPanel>
+  </ScrollViewer>
+</TabItem>
+
+<TabItem Header="Drops">
+  <ScrollViewer>
+    <StackPanel Margin="10" Spacing="8">
+      <TextBlock Text="Drop Options" FontWeight="Bold" Margin="0,0,0,8"/>
+      <CheckBox Content="Shuffle Drop Frequency"/>
+      <CheckBox Content="Standardize Drops"/>
+      <CheckBox Content="Randomize Drops"/>
+      <CheckBox Content="Shuffle Pbag Amounts"/>
+      <CheckBox Content="Mix Large and Small Items"/>
+      <CheckBox Content="Mix Overworld and Palace Items"/>
+      <CheckBox Content="Shuffle Overworld Items"/>
+      <CheckBox Content="Shuffle Palace Items"/>
+      <CheckBox Content="Shuffle Small Items"/>
+      <CheckBox Content="Palaces Have Extra Keys"/>
+      <CheckBox Content="Palace Palette Shuffle"/>
+      <CheckBox Content="Allow Palace Continent Swap"/>
+      <CheckBox Content="Restart At Palaces"/>
+      <CheckBox Content="Remove Spell Items"/>
+      <CheckBox Content="Enable Helpful Hints"/>
+      <CheckBox Content="Disable Unsafe Music"/>
+      <CheckBox Content="Randomize Music"/>
+      <CheckBox Content="Mix Custom And Original Music"/>
+
+      <TextBlock Text="Large Enemy Drops" FontWeight="Bold" Margin="16,16,0,8"/>
+      <CheckBox Content="Large Enemies Drop Key"/>
+      <CheckBox Content="Large Enemies Drop 1-Up"/>
+      <CheckBox Content="Large Enemies Drop XL Bag"/>
+      <CheckBox Content="Large Enemies Drop Large Bag"/>
+      <CheckBox Content="Large Enemies Drop Medium Bag"/>
+      <CheckBox Content="Large Enemies Drop Small Bag"/>
+      <CheckBox Content="Large Enemies Drop Red Jar"/>
+      <CheckBox Content="Large Enemies Drop Blue Jar"/>
+
+      <TextBlock Text="Small Enemy Drops" FontWeight="Bold" Margin="16,16,0,8"/>
+      <CheckBox Content="Small Enemies Drop Key"/>
+      <CheckBox Content="Small Enemies Drop 1-Up"/>
+      <CheckBox Content="Small Enemies Drop XL Bag"/>
+      <CheckBox Content="Small Enemies Drop Large Bag"/>
+      <CheckBox Content="Small Enemies Drop Medium Bag"/>
+      <CheckBox Content="Small Enemies Drop Small Bag"/>
+      <CheckBox Content="Small Enemies Drop Red Jar"/>
+      <CheckBox Content="Small Enemies Drop Blue Jar"/>
+      <!-- Ajoutez ici d'autres options spécifiques aux drops si besoin -->
+    </StackPanel>
+  </ScrollViewer>
+</TabItem>
+
+<TabItem Header="Misc">
+  <ScrollViewer>
+    <StackPanel Margin="10" Spacing="8">
+      <TextBlock Text="Miscellaneous Options" FontWeight="Bold" Margin="0,0,0,8"/>
+      <CheckBox Content="Enable Town Name Hints"/>
+      <CheckBox Content="Enable Spell Item Hints"/>
+      <CheckBox Content="Enable Helpful Hints"/>
+      <CheckBox Content="Disable HUD Lag"/>
+      <CheckBox Content="Disable Unsafe Music"/>
+      <CheckBox Content="Randomize Music"/>
+      <CheckBox Content="Mix Custom And Original Music"/>
+      <CheckBox Content="Flashing Off"/>
+      <CheckBox Content="Use Community Text"/>
+      <CheckBox Content="Hide Less Important Locations"/>
+      <CheckBox Content="Hide Kasuto"/>
+      <CheckBox Content="Swap Up+A and Downstab"/>
+      <CheckBox Content="Dash Always On"/>
+      <CheckBox Content="Jump Always On"/>
+      <CheckBox Content="Always Beam"/>
+      <CheckBox Content="Use Good Boots"/>
+      <CheckBox Content="Randomize Knockback"/>
+      <CheckBox Content="Randomize Boss Item"/>
+      <CheckBox Content="Randomize Jar Requirements"/>
+      <CheckBox Content="Remove Thunderbird Requirement"/>
+      <CheckBox Content="Remove Spell Items"/>
+      <CheckBox Content="Blocking Rooms In Any Palace"/>
+      <CheckBox Content="Boss Rooms Exit To Palace"/>
+      <CheckBox Content="Allow Boulder Blocked Connections"/>
+      <CheckBox Content="Allow Path Enemies"/>
+      <CheckBox Content="Sane Cave Shuffle"/>
+      <CheckBox Content="Include Vanilla Rooms"/>
+      <CheckBox Content="Include v4.0 Rooms"/>
+      <CheckBox Content="Include v4.4 Rooms"/>
+      <CheckBox Content="No Duplicate Rooms (By Layout)"/>
+      <CheckBox Content="No Duplicate Rooms (By Layout/Enemies)"/>
+      <CheckBox Content="Harder Carock"/>
+      <CheckBox Content="Hard Bosses"/>
+      <CheckBox Content="Use Custom Rooms"/>
+      <CheckBox Content="Mix Overworld Palace Items"/>
+      <CheckBox Content="Mix Large and Small Items"/>
+      <CheckBox Content="Mix Overworld and Palace Items"/>
+      <CheckBox Content="Shuffle Overworld Items"/>
+      <CheckBox Content="Shuffle Palace Items"/>
+      <CheckBox Content="Shuffle Small Items"/>
+      <CheckBox Content="Palaces Have Extra Keys"/>
+      <CheckBox Content="Palace Palette Shuffle"/>
+      <CheckBox Content="Allow Palace Continent Swap"/>
+      <CheckBox Content="Restart At Palaces"/>
+      <!-- Ajoutez ici d'autres options diverses si besoin -->
+    </StackPanel>
+  </ScrollViewer>
+</TabItem>
+
+
+<TabItem Header="Customize">
+  <ScrollViewer>
+    <StackPanel Margin="10" Spacing="8">
+      <TextBlock Text="Customize Options" FontWeight="Bold" Margin="0,0,0,8"/>
+      <TextBlock Text="Character Sprite:"/>
+      <ComboBox Width="180">
+        <ComboBoxItem Content="Default"/>
+        <ComboBoxItem Content="Link"/>
+        <ComboBoxItem Content="Zelda"/>
+        <ComboBoxItem Content="Random"/>
+        <!-- Ajoutez d'autres sprites si besoin -->
+      </ComboBox>
+      <TextBlock Text="Tunic Color:"/>
+      <ComboBox Width="180">
+        <ComboBoxItem Content="Default"/>
+        <ComboBoxItem Content="Red"/>
+        <ComboBoxItem Content="Blue"/>
+        <ComboBoxItem Content="Green"/>
+        <ComboBoxItem Content="Random"/>
+        <!-- Ajoutez d'autres couleurs si besoin -->
+      </ComboBox>
+      <TextBlock Text="Shield Color:"/>
+      <ComboBox Width="180">
+        <ComboBoxItem Content="Default"/>
+        <ComboBoxItem Content="Red"/>
+        <ComboBoxItem Content="Blue"/>
+        <ComboBoxItem Content="Green"/>
+        <ComboBoxItem Content="Random"/>
+        <!-- Ajoutez d'autres couleurs si besoin -->
+      </ComboBox>
+      <TextBlock Text="Beam Sprite:"/>
+      <ComboBox Width="180">
+        <ComboBoxItem Content="Default"/>
+        <ComboBoxItem Content="Fire"/>
+        <ComboBoxItem Content="Ice"/>
+        <ComboBoxItem Content="Random"/>
+        <!-- Ajoutez d'autres sprites si besoin -->
+      </ComboBox>
+      <TextBlock Text="Sprite Preview:" Margin="0,16,0,4"/>
+      <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="4" Width="64" Height="64" HorizontalAlignment="Left">
+        <!-- Ici vous pouvez afficher une image ou un contrôle personnalisé pour l'aperçu du sprite -->
+        <TextBlock Text="Preview" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+      </Border>
+      <TextBlock Text="Sprite Credit:" Margin="0,8,0,0"/>
+      <TextBox Width="200" IsReadOnly="True" Text="Sprite by ..."/>
+      <CheckBox Content="Use Community Text"/>
+      <CheckBox Content="Disable Music"/>
+      <CheckBox Content="Disable Unsafe Music"/>
+      <CheckBox Content="Randomize Music"/>
+      <CheckBox Content="Mix Custom And Original Music"/>
+      <!-- Ajoutez ici d'autres options de personnalisation si besoin -->
+    </StackPanel>
+  </ScrollViewer>
+</TabItem>
+
+      <!-- Ajoutez ici les autres onglets (Levels, Spells, Enemies, Items, Drops, Misc, Customize) en suivant la même logique -->
+
+    </TabControl>
+
+    <!-- Preset Buttons -->
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,0,0,0">
+      <Button Content="Beginner" Width="90" Margin="0,0,10,0"/>
+      <Button Content="Standard" Width="90" Margin="0,0,10,0"/>
+      <Button Content="Max Rando" Width="90" Margin="0,0,10,0"
+        Command="{Binding MaxRandoCommand}" />
+      <Button Content="Random%" Width="90" Margin="0,0,10,0"/>
+      <Button Content="Preset 5" Width="90" Margin="0,0,10,0"/>
+      <Button Content="Preset 6" Width="90"/>
+    </StackPanel>
+  </StackPanel>
+</Window>

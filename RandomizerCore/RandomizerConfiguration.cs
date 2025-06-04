@@ -468,7 +468,7 @@ public class RandomizerConfiguration
         config.StartWithReflect = bits[0];
         config.StartWithSpell = bits[1];
         config.StartWithThunder = bits[2];
-        config.StartingLives = bits[3] ? 7 : 3;
+        config.StartingLives = bits[3] ? null : 3;
         config.RemoveTBird = bits[4];
         config.RestrictConnectionCaveShuffle = bits[5];
 
@@ -1039,7 +1039,7 @@ public class RandomizerConfiguration
                 else
                 {
                     int value = (int)property.GetValue(this, null);
-                    if (value < minimum || value > minimum + limit)
+                    if (value < minimum || value >= minimum + limit)
                     {
                         logger.Warn("Property (" + property.Name + " was out of range.");
                         value = minimum;
