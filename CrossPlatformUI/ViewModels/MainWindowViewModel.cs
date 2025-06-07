@@ -69,8 +69,9 @@ public partial class MainWindowViewModel : INotifyPropertyChanged
     private void ExecuteMaxRando(object? parameter)
     {
         Console.WriteLine("Executing Max Rando Command");
-        config = RandomizerConfiguration.FromLegacyFlags("iyAqh+j#g7@+ZqTBT!BhOA!0P@@A");
-            
+        config = RandomizerConfiguration.FromLegacyFlags("hEAB0thBYbWs4WEb14HGg+!59rtgbtJ!AAFRA");
+
+        config = new RandomizerConfiguration("hEAB0thBYbWs4WEb14HGg+!59rtgbtJ!AAFRA");
         StartingLives = config.StartingLives switch
         {
             1 => 0,
@@ -126,7 +127,12 @@ public partial class MainWindowViewModel : INotifyPropertyChanged
 
         try
         {
-            config = RandomizerConfiguration.FromLegacyFlags(Flags);
+            Console.WriteLine("Démarrage de la génération de la ROM...");
+            Console.WriteLine($"Fichier ROM : {RomFile}");
+            Console.WriteLine($"Seed : {Seed}");
+            Console.WriteLine($"Flags : {Flags}");
+            // Parse the flags and seed, and initialize the configuration
+            config = new RandomizerConfiguration(Flags);
             config.Seed = Int32.Parse(Seed.Trim());
             config.FileName = RomFile.Trim();
 
@@ -154,7 +160,6 @@ public partial class MainWindowViewModel : INotifyPropertyChanged
         var worker = sender as BackgroundWorker;
         try
         {
-            // Place ici ta logique de génération synchrone
             new Hyrule(config, worker);
 
             if (worker.CancellationPending)
